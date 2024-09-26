@@ -2,7 +2,9 @@
 #include <fstream>
 using namespace std;
 
+void test(){
+}
 int main(){ 
-    cout<<"Hello,World"
+ 
     return 0; 
 }
