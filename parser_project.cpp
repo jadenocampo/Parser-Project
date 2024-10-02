@@ -11,10 +11,13 @@ int main(){
         cerr << "Error opening file " << endl;
         return 1;
     }
-    string line;
+    string file_line;
     cout <<"Test Program 2: "<< endl;
-    while (getline(inputFile, line)){
-        cout << line << endl;
+    while (getline(inputFile, file_line)){
+        for(size_t i =0; i < file_line.length(); i++){
+            cout << file_line[i] << "";
+        }
+        cout << endl;
     }
     inputFile.close();
     return 0;
