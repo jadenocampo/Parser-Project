@@ -46,42 +46,50 @@ public:
         if (currentChar == '=') {
             if (pos + 1 < input.size() && input[pos + 1] == '=') {
                 pos += 2;
+                std::cout<<"Lexeme: '==' , Token: EQ\n";
                 return {EQ, "==", line};
             }
             pos++;
+            std::cout<<"Lexeme: '=' , Token: ASSIGN\n";
             return {ASSIGN, "=", line};
         }
         if (currentChar == '+') {
             if (pos + 1 < input.size() && input[pos + 1] == '+') {
                 pos += 2;
+                std::cout<<"Lexeme: '++' , Token: INCREMENT\n";
                 return {INCREMENT, "++", line};
             }
             pos++;
+            std::cout<<"Lexeme: '+' , Token: PLUS\n";
             return {PLUS, "+", line};
         }
-        if (currentChar == '-') { pos++; return {MINUS, "-", line}; }
-        if (currentChar == '*') { pos++; return {MULTIPLY, "*", line}; }
-        if (currentChar == '/') { pos++; return {DIVIDE, "/", line}; }
-        if (currentChar == ';') { pos++; return {SEMICOLON, ";", line}; }
-        if (currentChar == ',') { pos++; return {COMMA, ",", line}; }
-        if (currentChar == '(') { pos++; return {LPAREN, "(", line}; }
-        if (currentChar == ')') { pos++; return {RPAREN, ")", line}; }
-        if (currentChar == '{') { pos++; return {LBRACE, "{", line}; }
-        if (currentChar == '}') { pos++; return {RBRACE, "}", line}; }
+        if (currentChar == '-') { pos++; std::cout<<"Lexeme: '-' , Token: MINUS\n"; return {MINUS, "-", line}; }
+        if (currentChar == '*') { pos++; std::cout<<"Lexeme: '*' , Token: MULTIPLY\n";return {MULTIPLY, "*", line}; }
+        if (currentChar == '/') { pos++; std::cout<<"Lexeme: '/' , Token: DIVIDE\n";return {DIVIDE, "/", line}; }
+        if (currentChar == ';') { pos++; std::cout<<"Lexeme: ';' , Token: SEMICOLON\n";return {SEMICOLON, ";", line}; }
+        if (currentChar == ',') { pos++; std::cout<<"Lexeme: ',' , Token: COMMA\n";return {COMMA, ",", line}; }
+        if (currentChar == '(') { pos++; std::cout<<"Lexeme: '(' , Token: LPAREN\n";return {LPAREN, "(", line}; }
+        if (currentChar == ')') { pos++; std::cout<<"Lexeme: ')' , Token: RPAREN\n";return {RPAREN, ")", line}; }
+        if (currentChar == '{') { pos++; std::cout<<"Lexeme: '{' , Token: LBRACE\n";return {LBRACE, "{", line}; }
+        if (currentChar == '}') { pos++; std::cout<<"Lexeme: '}' , Token: RBRACE\n";return {RBRACE, "}", line}; }
         if (currentChar == '<') {
             if (pos + 1 < input.size() && input[pos + 1] == '=') {
                 pos += 2;
+                std::cout<<"Lexeme: '<=' , Token: LE\n";
                 return {LE, "<=", line};
             }
             pos++;
+            std::cout<<"Lexeme: '<' , Token: LT\n";
             return {LT, "<", line};
         }
         if (currentChar == '>') {
             if (pos + 1 < input.size() && input[pos + 1] == '=') {
                 pos += 2;
+                std::cout<<"Lexeme: '>=' , Token: GE\n";
                 return {GE, ">=", line};
             }
             pos++;
+            std::cout<<"Lexeme: '>' , Token: 'GT'\n";
             return {GT, ">", line};
         }
 
@@ -98,9 +106,20 @@ private:
         size_t start = pos;
         while (pos < input.size() && (isalnum(input[pos]) || input[pos] == '_')) pos++;
         std::string lexeme = input.substr(start, pos - start);
-        if (lexeme == "int") return {INT, lexeme, line};
-        if (lexeme == "float") return {FLOAT, lexeme, line};
-        if (lexeme == "for") return {FOR, lexeme, line};
+        if (lexeme == "int"){
+            std::cout<<"Lexeme: '"<<lexeme<<"' TOKEN: KEYWORD\n";
+            return {INT, lexeme, line};
+        }
+
+        if (lexeme == "float"){
+            std::cout<<"Lexeme: '"<<lexeme<<"' TOKEN: KEYWORD\n";
+            return {FLOAT, lexeme,line};
+        }
+        if (lexeme == "for"){
+            std::cout<<"Lexeme: '"<<lexeme<<"' TOKEN: KEYWORD\n";
+            return {FOR,lexeme,line};
+        }
+        std::cout<<"Lexeme: '"<<lexeme<<"' TOKEN: IDENTIFIER\n";
         return {ID, lexeme, line};
     }
 
@@ -172,6 +191,7 @@ private:
 
             std::string paramName = currentToken.lexeme;
             consume(); // Consume parameter name
+            std::cout<<"Lexeme: '"<<paramName<<"' TOKEN: IDENTIFIER\n";
             //Testing comment, uncomment for debug
             /*
             std::cout << "Parameter: " << paramName << " of type: "
@@ -311,6 +331,7 @@ private:
             TokenType op = currentToken.type;
             consume(); // Consume operator
             factor();
+            std::cout<<"Lexeme: '"<<currentToken.type<<"' TOKEN: FACTOR\n";
             //Testing comment, uncomment for debug
             //std::cout << "Parsed " << (op == MULTIPLY ? "multiplication" : "division") << " operation" << std::endl;
         }
@@ -399,3 +420,4 @@ int main() {
 
     return 0;
 }
+
